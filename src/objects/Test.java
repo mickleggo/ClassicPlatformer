@@ -1,14 +1,13 @@
 package objects;
-
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.LinkedList;
-
 import framework.GameObject;
 import framework.ObjectId;
 
-public class Player extends GameObject {
+public class Test extends GameObject {
 
-	public Player(float x, float y, ObjectId id) {
+	public Test(float x, float y, ObjectId id) {
 		super(x, y, id);
 	}
 
@@ -17,7 +16,8 @@ public class Player extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		
+		g.setColor(Color.BLUE);
+		g.fillRect((int) x, (int) y, 32, 32);
 	}
 
 	public ObjectId getId() {
