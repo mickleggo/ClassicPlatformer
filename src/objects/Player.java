@@ -1,14 +1,13 @@
 package objects;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.util.LinkedList;
-
+import coreGame.Handler;
 import framework.GameObject;
 import framework.ObjectId;
 
 public class Player extends GameObject {
+	
+	private Handler handler; 
 	
 	private boolean jumping = false;
 	private boolean falling = true;
@@ -18,17 +17,35 @@ public class Player extends GameObject {
 	
 	private final float MAX_SPEED = 10;
 
-	public Player(float x, float y, ObjectId id) {
+	public Player(float x, float y, ObjectId id, Handler handler) {
 		super(x, y, id);
+		this.handler = handler;
 	}
 
 	public void tick(LinkedList<GameObject> object) {
 		x += velX;
-		//y += velY;
+		y += velY;
 		
 		if(jumping || falling) {
 			velY += gravity;
 			if(velY > MAX_SPEED) velY = MAX_SPEED;
+		}
+		
+		Collision(object);
+	}
+	
+	private void Collision(LinkedList<GameObject> object) {
+		for (int i = 0; i < handler.object.size(); i++) {
+			GameObject tempObject = handler.object.get(i);
+			
+			if (tempObject.getId() == ObjectId.Block) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					y = tempObject.getY() - height;
+					velY = 0;
+					falling = false;
+					jumping = false;
+				}
+			}
 		}
 	}
 

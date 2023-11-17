@@ -1,6 +1,9 @@
 package coreGame;
-import java.awt.*;
+import java.awt.Canvas;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import framework.KeyInput;
 import framework.ObjectId;
 import objects.Player;
 
@@ -24,7 +27,9 @@ public class CoreGame extends Canvas implements Runnable {
 		
 		handler = new Handler();
 		handler.createLevel();
-		handler.addObject(new Player(100, 100, ObjectId.Player));
+		handler.addObject(new Player(100, 100, ObjectId.Player, handler));
+		
+		this.addKeyListener(new KeyInput(handler));
 	}
 	
 	public synchronized void start() {
