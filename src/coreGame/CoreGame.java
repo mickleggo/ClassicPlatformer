@@ -14,6 +14,7 @@ public class CoreGame extends Canvas implements Runnable {
 	public static int WIDTH, HEIGHT;
 	
 	Handler handler;
+	Camera cam;
 
 	public static void main(String[] args) {
 		new Window(800, 600, "Platformer", new CoreGame());
@@ -23,6 +24,7 @@ public class CoreGame extends Canvas implements Runnable {
 		WIDTH = getWidth();
 		HEIGHT = getHeight();
 		
+		cam = new Camera( 0, 0);
 		handler = new Handler();
 		handler.createLevel();
 		handler.addObject(new Player(100, 100, ObjectId.Player, handler));
@@ -71,6 +73,12 @@ public class CoreGame extends Canvas implements Runnable {
 	
 	private void tick() {
 		handler.tick();
+		for (int i = 0; i < handler.object.size(); i++) {
+			if (handler.object.get(i).getId() == ObjectId.Player ) {
+				cam.tick(handler.object.get(i));
+			}
+		}
+		
 	}
 	
 	private void render() {
@@ -81,11 +89,17 @@ public class CoreGame extends Canvas implements Runnable {
 		}
 		
 		Graphics g = bs.getDrawGraphics();
+		Graphics2D g2d = (Graphics2D) g;
+		
+		
 	//***************************************************************************************//	
 		//Draw game here
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		g2d.translate(cam.getX(), cam.getY());
 		handler.render(g);
+		g2d.translate(-cam.getX(), -cam.getY());
 		
 	//***************************************************************************************//	
 		g.dispose();
