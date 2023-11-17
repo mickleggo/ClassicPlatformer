@@ -1,7 +1,5 @@
 package coreGame;
-import java.awt.Canvas;
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferStrategy;
 import framework.KeyInput;
 import framework.ObjectId;
@@ -64,8 +62,6 @@ public class CoreGame extends Canvas implements Runnable {
 			
 			if(System.currentTimeMillis() - timer > 1000) {
 				timer += 1000;
-//				fps = frames;
-//				ticks = updates;
 				System.out.println("FPS: " + frames + "  | TICKS: " + updates);
 				frames = 0;
 				updates = 0;
