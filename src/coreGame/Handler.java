@@ -1,8 +1,10 @@
 package coreGame;
 import java.awt.Graphics;
 import java.util.LinkedList;
-
 import framework.GameObject;
+import framework.ObjectId;
+import objects.Block;
+
 
 public class Handler {
 	
@@ -30,6 +32,12 @@ public class Handler {
 	
 	public void removeObject(GameObject object) {
 		this.object.remove(object);
+	}
+	
+	public void createLevel() {
+		for (int xx = 0; xx < CoreGame.WIDTH+32; xx += 32) {
+			addObject(new Block(xx, CoreGame.HEIGHT-32, ObjectId.Block));
+		}
 	}
 	
 }

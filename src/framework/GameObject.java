@@ -1,6 +1,8 @@
 package framework;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.LinkedList;
+
 
 public abstract class GameObject {
 
@@ -18,17 +20,37 @@ public abstract class GameObject {
 	
 	public abstract void tick(LinkedList<GameObject> object);
 	public abstract void render(Graphics g);
+	public abstract Rectangle getBounds();
 	
-	public abstract ObjectId getId();
+	public ObjectId getId() {
+		return id;
+	}
 	
-	public abstract float getX();
-	public abstract float getY();
-	public abstract void setX(float x);
-	public abstract void setY(float y);
+	public float getX() {
+		return x;
+	}
+	public float getY() {
+		return y;
+	}
+	public void setX(float x) {
+		this.x = x;
+	}
 	
-	public abstract float getVelX();
-	public abstract float getVelY();
-	public abstract void setVelX(float velX);
-	public abstract void setVelY(float velY);
+	public void setY(float y) {
+		this.y = y;
+	}
+	
+	public float getVelX() {
+		return velX;
+	}
+	public float getVelY() {
+		return velY;
+	}
+	public void setVelX(float velX) {
+		this.velX = velX;
+	}
+	public void setVelY(float velY) {
+		this.velY = velY;
+	}
 	
 }

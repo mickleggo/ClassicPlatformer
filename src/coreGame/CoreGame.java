@@ -3,13 +3,14 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import framework.ObjectId;
-import objects.Test;
+
 
 public class CoreGame extends Canvas implements Runnable {
-	private static final long serialVersionUID = -6764672190690957850L;
+	private static final long serialVersionUID = -6764672190690957850L;	
 	private boolean running = false;
 	private Thread thread;
+	
+	public static int WIDTH, HEIGHT;
 	
 	Handler handler;
 
@@ -18,8 +19,11 @@ public class CoreGame extends Canvas implements Runnable {
 	}
 	
 	private void init() {
+		WIDTH = getWidth();
+		HEIGHT = getHeight();
+		
 		handler = new Handler();
-		handler.addObject(new Test(100, 100, ObjectId.Test));
+		handler.createLevel();
 	}
 	
 	public synchronized void start() {

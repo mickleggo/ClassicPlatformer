@@ -2,6 +2,7 @@ package coreGame;
 import java.awt.Dimension;
 import javax.swing.JFrame;
 
+
 public class Window {
 
 	public Window(int w, int h, String title, CoreGame game) {
