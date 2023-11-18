@@ -42,8 +42,8 @@ public class Player extends GameObject {
 				if(getBounds().intersects(tempObject.getBounds()) ) {
 					y = tempObject.getY() - height;
 					velY = 0;
-					this.falling = false;
-					this.jumping = false;
+					falling = false;
+					jumping = false;
 				}
 				else {
 					falling = true;
@@ -65,7 +65,7 @@ public class Player extends GameObject {
 			
 			if (tempObject.getId() == ObjectId.Block) {
 				if(getBoundsRight().intersects(tempObject.getBounds())) {
-					x = tempObject.getX() - width;
+					x = tempObject.getX() - (width+3);
 				}
 			}
 		}
@@ -93,7 +93,7 @@ public class Player extends GameObject {
 		return new Rectangle((int) x+ (int)width -5, (int) y+6, (int) 6, (int) height-12);
 	}
 	public Rectangle getBoundsTop() {
-		return new Rectangle((int) x, (int) y-1, (int) width-1, (int) 6);
+		return new Rectangle((int) x+2, (int) y, (int) width-5, (int) 6);
 	}
 
 }
