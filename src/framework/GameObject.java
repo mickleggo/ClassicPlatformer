@@ -56,14 +56,12 @@ public abstract class GameObject {
 		return falling;
 	}
 	public boolean isJumping() {
-		System.out.println(this.id + " has jumping set to " + this.jumping);
 		return jumping;
 	}
 	public void setFalling(boolean falling) {
 		this.falling = falling;
 	}
 	public void setJumping(boolean jumping) {
-		System.out.println(this.id + " has jumping being set to " + this.jumping);
 		this.jumping = jumping;
 	}
 }

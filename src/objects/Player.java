@@ -1,21 +1,20 @@
 package objects;
 import java.awt.*;
 import java.util.LinkedList;
+import coreGame.CoreGame;
 import coreGame.Handler;
-import framework.GameObject;
-import framework.ObjectId;
+import framework.*;
 
 public class Player extends GameObject {
 	
 	private Handler handler; 
 	
-	private boolean jumping = false;
-	private boolean falling = true;
-	
 	private float width = 32, height = 64;
 	private float gravity = 0.4f;
 	
 	private final float MAX_SPEED = 10;
+	
+	Texture tex = CoreGame.getInstance();
 
 	public Player(float x, float y, ObjectId id, Handler handler) {
 		super(x, y, id);
@@ -48,39 +47,45 @@ public class Player extends GameObject {
 				else {
 					falling = true;
 				}
-			}
-			
-			if (tempObject.getId() == ObjectId.Block) {
-				if(getBoundsTop().intersects(tempObject.getBounds())) {
-					y = tempObject.getY() + (height /2);
-					velY *= -1;
+				
+				if (tempObject.getId() == ObjectId.Block) {
+					if(getBoundsLeft().intersects(tempObject.getBounds())) {
+						x = tempObject.getX() + 35;
+					}
+				}
+				
+				if (tempObject.getId() == ObjectId.Block) {
+					if(getBoundsRight().intersects(tempObject.getBounds())) {
+						x = tempObject.getX() - (width+3);
+					}
+				}
+				
+				if (tempObject.getId() == ObjectId.Block) {
+					if(getBoundsTop().intersects(tempObject.getBounds())) {
+						y = tempObject.getY() + (height /2);
+						velY *= -1;
+					}
 				}
 			}
 			
-			if (tempObject.getId() == ObjectId.Block) {
-				if(getBoundsLeft().intersects(tempObject.getBounds())) {
-					x = tempObject.getX() + 35;
-				}
-			}
-			
-			if (tempObject.getId() == ObjectId.Block) {
-				if(getBoundsRight().intersects(tempObject.getBounds())) {
-					x = tempObject.getX() - (width+3);
-				}
-			}
 		}
 	}
 
 	public void render(Graphics g) {
 		g.setColor(Color.BLUE);
-		g.fillRect((int) x, (int) y, (int) width, (int) height);
+		if(velX < 0) {
+			g.drawImage(tex.player[1], (int) x, (int) y, null);
+		}
+		else {
+			g.drawImage(tex.player[0], (int) x, (int) y, null);
+		}
 		
-		Graphics2D g2d = (Graphics2D) g;
-		g.setColor(Color.MAGENTA);
-		g2d.draw(getBounds());
-		g2d.draw(getBoundsLeft());
-		g2d.draw(getBoundsRight());
-		g2d.draw(getBoundsTop());
+//		Graphics2D g2d = (Graphics2D) g;
+//		g.setColor(Color.MAGENTA);
+//		g2d.draw(getBounds());
+//		g2d.draw(getBoundsLeft());
+//		g2d.draw(getBoundsRight());
+//		g2d.draw(getBoundsTop());
 	}
 
 	public Rectangle getBounds() {

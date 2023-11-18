@@ -35,17 +35,6 @@ public class Handler {
 	}
 	
 	public void createLevel() {
-//		for (int xx = 0; xx < CoreGame.WIDTH*2; xx += 32) {
-//			addObject(new Block(xx, CoreGame.HEIGHT-32, ObjectId.Block));
-//		}
-//		
-//		for (int xPlat = 200; xPlat < 600; xPlat += 32) {
-//			addObject(new Block(xPlat, 400, ObjectId.Block));
-//		}
-//		
-//		for (int yy = 0; yy < CoreGame.HEIGHT+32; yy += 32) {
-//			addObject(new Block(0, yy, ObjectId.Block));
-//		}
 		
 	}
 	

@@ -1,8 +1,7 @@
 package coreGame;
 import java.awt.*;
 import java.awt.image.*;
-import framework.KeyInput;
-import framework.ObjectId;
+import framework.*;
 import objects.Block;
 import objects.Player;
 
@@ -17,6 +16,7 @@ public class CoreGame extends Canvas implements Runnable {
 	
 	Handler handler;
 	Camera cam;
+	static Texture tex;
 
 	public static void main(String[] args) {
 		new Window(800, 600, "Platformer", new CoreGame());
@@ -26,13 +26,14 @@ public class CoreGame extends Canvas implements Runnable {
 		WIDTH = getWidth();
 		HEIGHT = getHeight();
 		
+		tex = new Texture();
+		
 		BufferedImageLoader loader = new BufferedImageLoader();
 		level = loader.loadImage("/level.png");
 		
 		cam = new Camera( 0, 0);
 		handler = new Handler();
 		//handler.createLevel();
-		//handler.addObject(new Player(100, 100, ObjectId.Player, handler));
 		
 		LoadImageLevel(level);
 		
@@ -113,6 +114,10 @@ public class CoreGame extends Canvas implements Runnable {
 		bs.show();
 	}
 	
+	public static Texture getInstance() {
+		return tex;
+	}
+	
 	private void LoadImageLevel(BufferedImage image) {
 		int w = image.getWidth();
 		int h = image.getHeight();
@@ -124,7 +129,8 @@ public class CoreGame extends Canvas implements Runnable {
 				int green = (pixel >> 8) & 0xff;
 				int blue = (pixel) & 0xff;
 				
-				if(red == 0 && green == 0 && blue == 0) handler.addObject(new Block(xx*32, yy*32, ObjectId.Block));
+				if(red == 0 && green == 0 && blue == 0) handler.addObject(new Block(xx*32, yy*32, 0, ObjectId.Block));
+				if(red == 127 && green == 127 && blue == 127) handler.addObject(new Block(xx*32, yy*32, 1, ObjectId.Block));
 				if(red == 0 && green == 0 && blue == 255) handler.addObject(new Player(xx*32, yy*32, ObjectId.Player, handler));
 			}
 		}
