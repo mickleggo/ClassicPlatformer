@@ -42,8 +42,8 @@ public class Player extends GameObject {
 				if(getBounds().intersects(tempObject.getBounds()) ) {
 					y = tempObject.getY() - height;
 					velY = 0;
-					falling = false;
-					jumping = false;
+					this.falling = false;
+					this.jumping = false;
 				}
 				else {
 					falling = true;

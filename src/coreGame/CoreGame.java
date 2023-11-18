@@ -1,8 +1,9 @@
 package coreGame;
 import java.awt.*;
-import java.awt.image.BufferStrategy;
+import java.awt.image.*;
 import framework.KeyInput;
 import framework.ObjectId;
+import objects.Block;
 import objects.Player;
 
 
@@ -10,6 +11,7 @@ public class CoreGame extends Canvas implements Runnable {
 	private static final long serialVersionUID = -6764672190690957850L;	
 	private boolean running = false;
 	private Thread thread;
+	private BufferedImage level = null;
 	
 	public static int WIDTH, HEIGHT;
 	
@@ -24,10 +26,15 @@ public class CoreGame extends Canvas implements Runnable {
 		WIDTH = getWidth();
 		HEIGHT = getHeight();
 		
+		BufferedImageLoader loader = new BufferedImageLoader();
+		level = loader.loadImage("/level.png");
+		
 		cam = new Camera( 0, 0);
 		handler = new Handler();
-		handler.createLevel();
-		handler.addObject(new Player(100, 100, ObjectId.Player, handler));
+		//handler.createLevel();
+		//handler.addObject(new Player(100, 100, ObjectId.Player, handler));
+		
+		LoadImageLevel(level);
 		
 		this.addKeyListener(new KeyInput(handler));
 	}
@@ -104,6 +111,23 @@ public class CoreGame extends Canvas implements Runnable {
 	//***************************************************************************************//	
 		g.dispose();
 		bs.show();
+	}
+	
+	private void LoadImageLevel(BufferedImage image) {
+		int w = image.getWidth();
+		int h = image.getHeight();
+		
+		for(int xx = 0; xx < w; xx++) {
+			for(int yy = 0; yy < h; yy++) {
+				int pixel = image.getRGB(xx, yy);
+				int red = (pixel >> 16) & 0xff;
+				int green = (pixel >> 8) & 0xff;
+				int blue = (pixel) & 0xff;
+				
+				if(red == 0 && green == 0 && blue == 0) handler.addObject(new Block(xx*32, yy*32, ObjectId.Block));
+				if(red == 0 && green == 0 && blue == 255) handler.addObject(new Player(xx*32, yy*32, ObjectId.Player, handler));
+			}
+		}
 	}
 	
 }
